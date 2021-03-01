@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>textbook of zal</title>
+    <style>
+        .content{
+            margin:500 auto;
+            margin-left: 900;
+            text-align: center;
+            width: 200;
+            background: lightpink;
+        }
+
+        .menu {
+            PADDING-RIGHT: 0px;
+            PADDING-LEFT: 0px;
+            PADDING-BOTTOM: 2px;
+            CURSOR: pointer;
+            PADDING-TOP: 6px;
+            LIST-STYLE-TYPE: none;
+        }
+    </style>
+</head>
+<body>
+<session class="content" id="app">
+    <header class="content">
+        <h1>美丽的zal专用textbook</h1>
+        <input autofocus="autofocus" autocomplete="off" placeholder="今天干啥好呢"
+        v-model="message" @keyup.enter="add"/>
+    </header>
+    <ul>
+        <li class="menu" v-for="(item,index) in list"
+            @mouseover="mouseOver"
+            @mouseleave="mouseLeave">
+            {{index+1}}. {{item}}
+            <input type="button" value="x" style="text-align: right" v-show="isShow" @click="remove(index)">
+        </li>
+    </ul>
+    <footer>
+        <span>
+            <strong v-if="list.length!=0">{{list.length}} item left</strong>
+            <input type="button" value="clear" @click="clear" v-if="list.length!=0"/>
+        </span>
+    </footer>
+
+
+</session>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            index:-1,
+            message:"",
+            list:["吃饭饭","睡觉觉","写bug"],
+            isShow:false
+        },
+        methods:{
+            add:function(){
+                this.list.push(this.message);
+                this.message = "";
+            },
+            remove:function(index){
+                this.list.splice(index,1)
+            },
+            mouseOver:function(){
+              this.isShow = true
+            },
+            mouseLeave:function(){
+                this.isShow = false
+            },
+            clear:function(){
+                this.list=[]
+            }
+        }
+    })
+</script>
+</body>
+</html>
